@@ -7,6 +7,8 @@ const {
   getPersonTypes,
 } = require("../controllers/TypesController.js");
 
-router.get("/document-types", getLogIn).get("").get("");
+router.get("/document-types", getDocumentTypes).get("").get("");
+router.get("/person-types", getPersonTypes).get("").get("");
+router.get("/contact-types", getContactTypes).get("").get("");
 
 module.exports = router;
