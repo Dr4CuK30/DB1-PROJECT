@@ -8,11 +8,11 @@ class Database {
 
   async connect() {
     const connectionConfig = {
-      user: 'BD12023',
-      password: 'BD12023',
+      user: 'SYSTEM',
+      password: 'SYSTEM',
       connectString: 'localhost/XE',
-      charset: 'UTF8'
-    }
+      charset: 'UTF8',
+    };
     try {
       this.connection = await oracledb.getConnection(connectionConfig);
       console.log('Conexión establecida correctamente');
@@ -28,4 +28,3 @@ class Database {
 const db = new Database();
 
 module.exports = db;
-

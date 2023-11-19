@@ -1,17 +1,17 @@
-const { getContactTypes } = require("../database/TipoContacto.js");
-const { getDocumentTypes } = require("../database/TipoDocumento.js");
-const { getPersonTypes } = require("../database/TipoPersona.js");
+const typesContacto = require('../database/TipoContacto.js');
+const typesDocumento = require('../database/TipoDocumento.js');
+const typesPersona = require('../database/TipoPersona.js');
 
 const getDocumentTypes = async () => {
-  const result = await getDocumentTypes();
+  const result = await typesDocumento.getDocumentTypes();
   return result;
 };
 const getContactTypes = async () => {
-  const result = await getContactTypes();
+  const result = await typesContacto.getContactTypes();
   return result;
 };
 const getPersonTypes = async () => {
-  const result = await getPersonTypes();
+  const result = await typesPersona.getPersonTypes();
   return result;
 };
 

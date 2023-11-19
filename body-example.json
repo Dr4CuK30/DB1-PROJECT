@@ -1,0 +1,19 @@
+{
+  "idTipoPersona": 1,
+  "idTipoDocumento": 1,
+  "nDocumento": 1000622841,
+  "nombre": "david",
+  "apellido": "saldarriaga",
+  "contactos": [
+    {
+        "descContacto": "amigo1",
+        "tipoContacto":1,
+        "descTipoContacto":"amigo"
+    }
+  ],
+  "direcciones": [
+    {
+       
+    }
+ ]
+}
