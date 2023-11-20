@@ -1,6 +1,6 @@
-const oracleConnection = require("./db.js");
-const { createContact } = require("./Contacto.js");
-const { createAddress } = require("./Direccion.js");
+const oracleConnection = require('./db.js');
+const { createContact } = require('./Contacto.js');
+const { createAddress } = require('./Direccion.js');
 
 if (!oracleConnection.isConnected()) {
   oracleConnection.connect();
@@ -32,15 +32,22 @@ const createPerson = async (req) => {
     );
     await oracleConnection.connection.commit();
     await Promise.all(
-      contactos.forEach(async (contacto) => await createContact())
+      contactos.map(async (contacto) => {
+        await createContact(
+          contacto,
+          idTipoDocumento,
+          idTipoPersona,
+          nDocumento
+        );
+      })
     );
     await Promise.all(
-      direcciones.forEach(async (direccion) => await createContact())
+      direcciones.map(async (direccion) => await createContact())
     );
-    return "success";
+    return 'success';
   } catch (err) {
     console.error(err);
-    throw new Error("Error al obtener los datos de la base de datos");
+    throw new Error('Error al obtener los datos de la base de datos');
   }
 };
 module.exports = {

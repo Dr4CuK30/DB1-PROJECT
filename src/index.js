@@ -14,7 +14,7 @@ app.use(cors());
 
 //routes
 app.use(require('./routes/TypesRoutes.js'));
-
+app.use(require('./routes/PersonRoutes.js'));
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
 });

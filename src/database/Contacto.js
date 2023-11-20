@@ -1,4 +1,4 @@
-const oracleConnection = require("./db.js");
+const oracleConnection = require('./db.js');
 
 if (!oracleConnection.isConnected()) {
   oracleConnection.connect();
@@ -14,10 +14,11 @@ const createContact = async (
     const { idTipoContacto, descTipoContacto, descContacto } = contacto;
     let consecContacto = 1;
     const lastContacto = await oracleConnection.connection.execute(
-      "SELECT MAX(CONSECCONTACTO) FROM ROOT.CONTACTO"
+      'SELECT MAX(CONSECCONTACTO) FROM ROOT.CONTACTO'
     );
-    if (lastContacto.rows.length !== 0) {
-      consecContacto = lastContacto.rows[0][0];
+    console.log(lastContacto);
+    if (lastContacto.rows[0][0]) {
+      consecContacto = lastContacto.rows[0][0] + 1;
     }
     result = await oracleConnection.connection.execute(
       `
@@ -36,10 +37,10 @@ const createContact = async (
       }
     );
     await oracleConnection.connection.commit();
-    return "success";
+    return 'success';
   } catch (err) {
     console.error(err);
-    throw new Error("Error al obtener los datos de la base de datos");
+    throw new Error('Error al obtener los datos de la base de datos');
   }
 };
 module.exports = {
