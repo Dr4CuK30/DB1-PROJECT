@@ -1,23 +1,47 @@
-// const oracleConnection = require("./db.js");
+const oracleConnection = require("./db.js");
 
-// if (!oracleConnection.isConnected()) {
-//   oracleConnection.connect();
-// }
+if (!oracleConnection.isConnected()) {
+  oracleConnection.connect();
+}
 
-// const insertContacto = async () => {
-//   try {
-//     result = await oracleConnection.connection.execute(
-//       `
-//         SELECT TC.IDTIPOCONTACTO, TC.DESCTIPOCONTACTO
-//         FROM TIPOCONTACTO TC
-//       `
-//     );
-//     return result.rows.map((tipo) => ({ id: tipo[0], description: tipo[1] }));
-//   } catch (err) {
-//     console.error(err);
-//     throw new Error("Error al obtener los datos de la base de datos");
-//   }
-// };
-// module.exports = {
-//   logIn,
-// };
+const createContact = async (
+  contacto,
+  idTipoDocumento,
+  idTipoPersona,
+  nDocumento
+) => {
+  try {
+    const { idTipoContacto, descTipoContacto, descContacto } = contacto;
+    let consecContacto = 1;
+    const lastContacto = await oracleConnection.connection.execute(
+      "SELECT MAX(CONSECCONTACTO) FROM ROOT.CONTACTO"
+    );
+    if (lastContacto.rows.length !== 0) {
+      consecContacto = lastContacto.rows[0][0];
+    }
+    result = await oracleConnection.connection.execute(
+      `
+      INSERT INTO ROOT.CONTACTO (CONSECCONTACTO, IDTIPOCONTACTO, DESCTIPOCONTACTO, IDTIPODOC, IDTIPOPERSONA, NDOCUMENTO,
+        DESCCONTACTO)
+      VALUES (:consecContacto, :idTipoContacto, :descTipoContacto, :idTipoDocumento, :idTipoPersona, :nDocumento, :descContacto)
+      `,
+      {
+        consecContacto,
+        idTipoContacto,
+        descTipoContacto,
+        idTipoDocumento,
+        idTipoPersona,
+        nDocumento,
+        descContacto,
+      }
+    );
+    await oracleConnection.connection.commit();
+    return "success";
+  } catch (err) {
+    console.error(err);
+    throw new Error("Error al obtener los datos de la base de datos");
+  }
+};
+module.exports = {
+  createContact,
+};

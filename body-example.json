@@ -6,14 +6,10 @@
   "apellido": "saldarriaga",
   "contactos": [
     {
-        "descContacto": "amigo1",
-        "tipoContacto":1,
-        "descTipoContacto":"amigo"
+      "descContacto": "amigo1",
+      "idTipoContacto": 1,
+      "descTipoContacto": "amigo"
     }
   ],
-  "direcciones": [
-    {
-       
-    }
- ]
+  "direcciones": [{}]
 }
